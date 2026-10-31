@@ -60,7 +60,7 @@ logger.error('Что-то пошло не так')
 ## Дополнительно: таблицы, панели, ротация логов
 
 ### rich — все возможности
-@@@python
+```python
 from rich import print
 from rich.console import Console
 from rich.table import Table
@@ -88,10 +88,10 @@ for i in track(range(10), description='Загрузка...'):
 
 # Подсветка кода
 Console().print(Syntax('print("hi")', 'python'))
-@@@
+```
 
 ### tqdm — прогресс-бар
-@@@python
+```python
 from tqdm import tqdm, trange
 
 # В цикле
@@ -111,10 +111,10 @@ pbar.close()
 # С pandas
 tqdm.pandas()
 df['x'].progress_apply(func)
-@@@
+```
 
 ### loguru — логирование
-@@@python
+```python
 from loguru import logger
 
 logger.debug('Отладка')
@@ -133,11 +133,11 @@ logger.bind(user_id=42).info('Вошёл')
 @logger.catch
 def risky():
     1 / 0
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Используешь print вместо logger в проде
 print('Ошибка')  # не сохранится в файл
 logger.error('Ошибка')  # ✅ попадёт в файл, с временем
@@ -149,4 +149,4 @@ pbar.close()  # ✅ иначе полоска висит
 # ❌ rich.print не работает как обычный print
 from rich import print  # перезаписывает встроенный
 # В одном файле — только один из двух
-@@@
+```

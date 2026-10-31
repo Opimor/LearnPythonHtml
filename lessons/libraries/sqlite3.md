@@ -48,7 +48,7 @@ print(rows)
 ## Дополнительно: все SQL-операции
 
 ### Создание таблицы с типами
-@@@python
+```python
 cur.execute('''
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,10 +59,10 @@ cur.execute('''
     )
 ''')
 conn.commit()
-@@@
+```
 
 ### INSERT (все варианты)
-@@@python
+```python
 # Одна строка
 cur.execute('INSERT INTO users (name, age) VALUES (?, ?)', ('Аня', 20))
 conn.commit()
@@ -74,10 +74,10 @@ cur.executemany(
     [('Иван', 25), ('Оля', 22)]
 )
 conn.commit()
-@@@
+```
 
 ### SELECT (все варианты)
-@@@python
+```python
 cur.execute('SELECT * FROM users')
 cur.fetchall()      # все строки как список кортежей
 cur.fetchone()      # одна строка (или None)
@@ -94,40 +94,40 @@ cur.execute('SELECT * FROM users LIMIT 10')
 
 # LIKE (поиск по подстроке)
 cur.execute('SELECT * FROM users WHERE name LIKE ?', ('%Аня%',))
-@@@
+```
 
 ### UPDATE и DELETE
-@@@python
+```python
 cur.execute('UPDATE users SET age = ? WHERE name = ?', (21, 'Аня'))
 conn.commit()
 
 cur.execute('DELETE FROM users WHERE age < ?', (18,))
 conn.commit()
 print(cur.rowcount)  # сколько затронуто строк
-@@@
+```
 
 ### Доступ по именам столбцов (dict)
-@@@python
+```python
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 cur.execute('SELECT * FROM users')
 row = cur.fetchone()
 print(row['name'], row['age'])  # доступ по именам
-@@@
+```
 
 ### Транзакции (откат при ошибке)
-@@@python
+```python
 try:
     cur.execute('UPDATE accounts SET balance = balance - 100 WHERE id = 1')
     cur.execute('UPDATE accounts SET balance = balance + 100 WHERE id = 2')
     conn.commit()
 except:
     conn.rollback()  # откатить оба изменения
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли conn.commit() — данные не сохранятся
 cur.execute('INSERT INTO users (name) VALUES (?)', ('Аня',))
 conn.commit()  # ✅ обязательно
@@ -144,4 +144,4 @@ cur.execute('INSERT INTO users (name) VALUES (?)', ('Аня',))  # ✅
 # ❌ Работа без закрытия соединения
 conn = sqlite3.connect('db.db')
 conn.close()  # ✅ всегда закрывай
-@@@
+```

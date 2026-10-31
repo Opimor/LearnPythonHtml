@@ -57,14 +57,14 @@ text = entry.get()
 
 ### Расположение элементов (grid)
 **`grid()`** — раскладывает элементы по сетке (строки/столбцы). **`pack()`** — просто в ряд.
-@@@python
+```python
 label.grid(row=0, column=0, padx=10, pady=10)
 entry.grid(row=0, column=1)
 button.grid(row=1, column=0, columnspan=2)  # на 2 колонки
-@@@
+```
 
 ### Все виджеты
-@@@python
+```python
 tk.Label(root, text='Текст')           # надпись
 tk.Button(root, text='OK', command=f)  # кнопка
 tk.Entry(root)                          # поле ввода (одна строка)
@@ -74,26 +74,26 @@ tk.Radiobutton(root, text='М', value='m', variable=var)  # выбор
 tk.Scale(root, from_=0, to=100)         # ползунок
 tk.Listbox(root)                        # список
 tk.Canvas(root, width=400, height=400)  # холст для рисования
-@@@
+```
 
 ### Диалоги (messagebox)
-@@@python
+```python
 from tkinter import messagebox
 messagebox.showinfo('Инфо', 'Всё работает!')
 messagebox.showwarning('Внимание', 'Что-то не так')
 messagebox.showerror('Ошибка', 'Неверный ввод')
 result = messagebox.askyesno('Вопрос', 'Продолжить?')
-@@@
+```
 
 ### Выбор файла
-@@@python
+```python
 from tkinter import filedialog
 path = filedialog.askopenfilename(title='Выбери файл')
 path = filedialog.asksaveasfilename(title='Сохранить как')
-@@@
+```
 
 ### Чтение и запись в полях
-@@@python
+```python
 # Entry — одна строка
 entry = tk.Entry(root)
 entry.insert(0, 'по умолчанию')
@@ -103,19 +103,19 @@ text = entry.get()
 text_widget = tk.Text(root)
 text_widget.insert('1.0', 'Привет')  # 1.0 = 1 строка, 0 символ
 content = text_widget.get('1.0', 'end')
-@@@
+```
 
 ### Функция при клике
-@@@python
+```python
 def on_click():
     name = entry.get()
     messagebox.showinfo('Привет', f'Привет, {name}!')
 
 button = tk.Button(root, text='Поздороваться', command=on_click)
-@@@
+```
 
 ### Чекбокс и радиокнопки
-@@@python
+```python
 agree = tk.BooleanVar()
 tk.Checkbutton(root, text='Согласен', variable=agree)
 # agree.get() → True/False
@@ -123,11 +123,11 @@ tk.Checkbutton(root, text='Согласен', variable=agree)
 gender = tk.StringVar(value='m')
 tk.Radiobutton(root, text='М', value='m', variable=gender)
 tk.Radiobutton(root, text='Ж', value='f', variable=gender)
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли root.mainloop() — окно не открывается
 root.mainloop()  # ✅ обязательно в конце
 
@@ -143,4 +143,4 @@ tk.Button(root, text='OK', command=f)  # ✅
 # ❌ Забыли скобки — command=f() вместо command=f
 tk.Button(root, command=f())  # вызывает функцию сразу!
 tk.Button(root, command=f)    # ✅ вызовется при клике
-@@@
+```

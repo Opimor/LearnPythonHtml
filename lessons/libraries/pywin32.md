@@ -55,7 +55,7 @@ win32clipboard.CloseClipboard()
 ## Дополнительно: перебор окон, реестр, COM
 
 ### Перебор всех окон
-@@@python
+```python
 import win32gui
 
 def enum_windows(hwnd, results):
@@ -68,19 +68,19 @@ wins = []
 win32gui.EnumWindows(enum_windows, wins)
 for hwnd, title in wins[:10]:
     print(hwnd, title)
-@@@
+```
 
 ### Свойства окна
-@@@python
+```python
 win32gui.GetWindowRect(hwnd)     # (left, top, right, bottom)
 win32gui.GetClientRect(hwnd)     # клиентская область
 win32gui.GetClassName(hwnd)      # класс окна
 win32gui.IsWindowVisible(hwnd)   # видимо?
 win32gui.GetParent(hwnd)         # родитель
-@@@
+```
 
 ### Действия с окнами
-@@@python
+```python
 import win32con
 win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)   # свернуть
 win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)   # развернуть
@@ -90,10 +90,10 @@ win32gui.BringWindowToTop(hwnd)
 win32gui.MoveWindow(hwnd, x, y, w, h, True)       # переместить
 win32gui.SetWindowText(hwnd, 'Новый заголовок')
 win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)  # закрыть
-@@@
+```
 
 ### Буфер обмена (полностью)
-@@@python
+```python
 import win32clipboard, win32con
 
 # Записать
@@ -107,10 +107,10 @@ win32clipboard.OpenClipboard()
 text = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
 win32clipboard.CloseClipboard()
 print(text)
-@@@
+```
 
 ### Реестр (все операции)
-@@@python
+```python
 import win32api, win32con
 
 # Чтение
@@ -126,19 +126,19 @@ win32api.RegSetValueEx(
     r'Software\MyApp',
     0, win32con.REG_SZ, 'my_value',
 )
-@@@
+```
 
 ### MessageBox
-@@@python
+```python
 import win32gui, win32con
 win32gui.MessageBox(0, 'Привет', 'Заголовок', win32con.MB_OK)
 result = win32gui.MessageBox(0, 'Продолжить?', '?', win32con.MB_YESNO)
 if result == win32con.IDYES:
     print('Да')
-@@@
+```
 
 ### COM-объекты (Excel, Word)
-@@@python
+```python
 import win32com.client
 
 excel = win32com.client.Dispatch('Excel.Application')
@@ -148,11 +148,11 @@ ws = wb.ActiveSheet
 ws.Cells(1, 1).Value = 'Привет'
 wb.SaveAs(r'C:\temp\out.xlsx')
 excel.Quit()
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли CloseClipboard — буфер заблокирован
 win32clipboard.OpenClipboard()
 win32clipboard.SetClipboardText('x')
@@ -164,4 +164,4 @@ hwnd = win32gui.FindWindow(None, 'Блокнот')  # ⚠️ ищет точно
 
 # ❌ Запись в реестр без прав администратора
 win32api.RegSetValueEx(...)  # нужны права админа для HKEY_LOCAL_MACHINE
-@@@
+```

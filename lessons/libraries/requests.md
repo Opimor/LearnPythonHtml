@@ -69,62 +69,62 @@ except requests.Timeout:
 ## Дополнительно: всё остальное
 
 ### Другие HTTP-методы
-@@@python
+```python
 requests.put(url, json={...})       # обновить
 requests.patch(url, json={...})     # частично обновить
 requests.delete(url)                # удалить
 requests.head(url)                  # только заголовки, без тела
 requests.options(url)               # какие методы разрешены
-@@@
+```
 
 ### Сессии (сохраняют cookies)
 **`Session()`** — если делаешь много запросов к одному сайту, используй сессию: cookies и заголовки сохраняются.
-@@@python
+```python
 s = requests.Session()
 s.headers.update({'User-Agent': 'MyApp'})
 s.get('https://site.com/login')
 s.get('https://site.com/profile')  # уже с cookies
-@@@
+```
 
 ### Загрузка файлов
 **`files`** — для отправки файла через multipart/form-data.
-@@@python
+```python
 files = {'file': open('photo.jpg', 'rb')}
 requests.post(url, files=files)
-@@@
+```
 
 ### Скачивание больших файлов
 **`stream=True`** — не загружает весь файл в память, а читает по частям.
-@@@python
+```python
 r = requests.get(url, stream=True)
 with open('video.mp4', 'wb') as f:
     for chunk in r.iter_content(8192):
         f.write(chunk)
-@@@
+```
 
 ### Своё исключение по статусу
 **`response.raise_for_status()`** — выбросит исключение, если код ответа 4xx или 5xx.
-@@@python
+```python
 try:
     r = requests.get(url, timeout=5)
     r.raise_for_status()
 except requests.HTTPError as e:
     print('Ошибка:', e)
-@@@
+```
 
 ### Авторизация
 **`auth=(user, pass)`** — Basic Auth. **`headers`** — Bearer Token (для API с токенами).
-@@@python
+```python
 requests.get(url, auth=('user', 'pass'))
 requests.get(url, headers={'Authorization': 'Bearer TOKEN'})
-@@@
+```
 
 ### Прокси
 **`proxies`** — если нужен прокси.
-@@@python
+```python
 proxies = {'http': 'http://proxy:8080', 'https': 'http://proxy:8080'}
 requests.get(url, proxies=proxies)
-@@@
+```
 
 ### Что внутри `response` (полный список)
 
@@ -143,7 +143,7 @@ requests.get(url, proxies=proxies)
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Без timeout — может зависнуть навсегда
 requests.get(url)
 
@@ -166,4 +166,4 @@ requests.get(f'https://api.com/?token={TOKEN}')
 
 # ✅ Через заголовок
 requests.get('https://api.com/', headers={'Authorization': f'Bearer {TOKEN}'})
-@@@
+```

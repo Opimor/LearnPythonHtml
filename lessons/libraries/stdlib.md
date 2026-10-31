@@ -56,17 +56,17 @@ subprocess.run(['dir'], shell=True)
 ## Дополнительно: JSON, regex, дата, collections
 
 ### JSON
-@@@python
+```python
 import json
 
 json.dumps(obj, indent=2, ensure_ascii=False)  # dict → str
 json.loads(string)                             # str → dict
 json.dump(obj, file)                           # в файл
 json.load(file)                                # из файла
-@@@
+```
 
 ### Регулярные выражения
-@@@python
+```python
 import re
 
 re.findall(r'\d+', text)         # все совпадения
@@ -74,10 +74,10 @@ re.search(r'\d+', text)          # первое (Match или None)
 re.sub(r'\d', 'X', text)         # замена
 re.split(r'[,;]', text)           # разбить
 re.compile(r'pattern')            # скомпилировать (для повторного)
-@@@
+```
 
 ### datetime
-@@@python
+```python
 from datetime import datetime, date, timedelta
 
 datetime.now()                    # сейчас
@@ -85,10 +85,10 @@ datetime.now() + timedelta(days=7)  # через неделю
 datetime.strptime('2024-01-01', '%Y-%m-%d')
 datetime.now().strftime('%Y-%m-%d %H:%M')
 date.today()
-@@@
+```
 
 ### collections
-@@@python
+```python
 from collections import Counter, defaultdict, deque
 
 # Counter — счётчик
@@ -102,10 +102,10 @@ dd['fruits'].append('apple')  # не нужно проверять ключ
 dq = deque([1, 2, 3])
 dq.appendleft(0)
 dq.pop()
-@@@
+```
 
 ### pathlib (современный способ)
-@@@python
+```python
 from pathlib import Path
 
 p = Path('file.txt')
@@ -114,19 +114,19 @@ p.read_text()
 p.write_text('hi')
 p.name, p.stem, p.suffix, p.parent
 Path('.').glob('*.py')
-@@@
+```
 
 ### subprocess (запуск команд)
-@@@python
+```python
 import subprocess
 
 subprocess.run(['dir'], shell=True)
 result = subprocess.run(['echo', 'hi'], capture_output=True, text=True)
 print(result.stdout)
-@@@
+```
 
 ### math и random
-@@@python
+```python
 import math, random
 
 math.sqrt(16), math.pi, math.e
@@ -136,11 +136,11 @@ random.randint(1, 10)
 random.choice(['a', 'b'])
 random.shuffle(list)
 random.seed(42)
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Путать os.path и pathlib
 import os; os.path.join('a', 'b')  # старый способ
 from pathlib import Path; Path('a') / 'b'  # ✅ современнее
@@ -152,4 +152,4 @@ json.dumps({'a': 'Аня'}, ensure_ascii=False)  # '{"a": "Аня"}' ✅
 # ❌ Использовать re без raw-строки
 re.findall('\d+', text)    # ⚠️ \d истолкуется
 re.findall(r'\d+', text)   # ✅ raw-строка
-@@@
+```
