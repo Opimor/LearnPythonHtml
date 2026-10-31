@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Learn Python{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <a href="/" class="logo">
+    <img src="{{ url_for('static', filename='icons/python.svg') }}" class="icon" alt="Logo">
+    Learn Python
+  </a>
+  <nav>
+    <a href="/"><img src="{{ url_for('static', filename='icons/book.svg') }}" class="icon"> Уроки</a>
+    <a href="/playground"><img src="{{ url_for('static', filename='icons/terminal.svg') }}" class="icon"> Песочница</a>
+    <button id="theme-toggle" class="theme-btn" title="Переключить тему">🌙</button>
+    <span class="made-by">сделано <b>DeepSeek</b></span>
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <div>
+    <b>◈ Learn Python</b> — интерактивный курс
+  </div>
+  <div class="footer-meta">
+    Полностью создано <b>DeepSeek AI</b> · код, уроки, гайды и дизайн
+  </div>
+</footer>
+<script>
+document.querySelectorAll('pre').forEach(pre => {
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Копировать';
+  pre.appendChild(btn);
+  btn.addEventListener('click', () => {
+    const code = pre.querySelector('code') || pre;
+    navigator.clipboard.writeText(code.innerText).then(() => {
+      btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Скопировано';
+      setTimeout(() => btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Копировать', 2000);
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.live-playground').forEach(box => {
+  const b64 = box.getAttribute('data-code') || '';
+  if (!b64) return;
+  let code = '';
+  try {
+    code = decodeURIComponent(escape(atob(b64)));
+  } catch(e) {
+    code = 'Ошибка загрузки примера';
+  }
+  
+  const container = document.createElement('div');
+  container.className = 'interactive-box';
+  
+  const codeDiv = document.createElement('div');
+  codeDiv.className = 'interactive-code';
+  const ta = document.createElement('textarea');
+  ta.spellcheck = false;
+  ta.value = code;
+  codeDiv.appendChild(ta);
+  
+  const resultDiv = document.createElement('div');
+  resultDiv.className = 'interactive-result';
+  const iframe = document.createElement('iframe');
+  resultDiv.appendChild(iframe);
+  
+  container.appendChild(codeDiv);
+  container.appendChild(resultDiv);
+  
+  box.innerHTML = '';
+  box.appendChild(container);
+  
+  iframe.srcdoc = code;
+  
+  ta.addEventListener('input', () => {
+    iframe.srcdoc = ta.value;
+  });
+});
+</script>
+
+
+<script>
+// Переключение темы
+(function() {
+  const btn = document.getElementById('theme-toggle');
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+    btn.textContent = '☀️';
+  }
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    btn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}{{ slug }} — Learn Python{% endblock %}
+{% block content %}
+<a href="/" class="back">← ко всем урокам</a>
+
+<div class="deepseek-note">
+  <span style="font-size:18px;">◈</span>
+  <span>Этот урок создан <b>DeepSeek AI</b> — весь текст, примеры и код сгенерированы моделью.</span>
+</div>
+
+{% if quiz %}
+<div class="quiz-actions" id="quiz-actions">
+  <button id="start-quiz-btn" class="btn-quiz">📝 Я изучил — пройти тест</button>
+  <span class="quiz-hint">Прогресс сбросится, если выйдешь со страницы</span>
+</div>
+{% endif %}
+
+<article class="lesson" id="lesson-content">
+{{ content | safe }}
+</article>
+
+{% if quiz %}
+<div id="quiz-container" style="display:none;"></div>
+<script>
+const quizData = {{ quiz | tojson }};
+const slug = {{ slug | tojson }};
+const lessonEl = document.getElementById('lesson-content');
+const actionsEl = document.getElementById('quiz-actions');
+const containerEl = document.getElementById('quiz-container');
+
+document.getElementById('start-quiz-btn').addEventListener('click', () => {
+  if (!confirm('Начинаем тест? Урок будет скрыт, чтобы нельзя было подглядывать.')) return;
+  lessonEl.style.display = 'none';
+  actionsEl.style.display = 'none';
+  renderQuiz();
+  containerEl.style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+
+function renderQuiz() {
+  let html = '<div class="quiz-box">';
+  html += '<h1>Тест: проверка знаний</h1>';
+  html += '<p class="quiz-subtitle">Вопросов: ' + quizData.length + '. Проходной балл: половина.</p>';
+  quizData.forEach((q, i) => {
+    html += '<div class="quiz-question">';
+    html += '<p class="q-text"><b>' + (i+1) + '.</b> ' + q.q + '</p>';
+    q.options.forEach((opt, j) => {
+      html += '<label class="q-option"><input type="radio" name="q' + i + '" value="' + j + '"> <span>' + opt + '</span></label>';
+    });
+    html += '</div>';
+  });
+  html += '<button id="submit-quiz" class="btn-quiz" style="margin-top:24px;">Проверить ответы</button>';
+  html += '<div id="quiz-result"></div>';
+  html += '</div>';
+  containerEl.innerHTML = html;
+  document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
+}
+
+async function submitQuiz() {
+  const answers = quizData.map((_, i) => {
+    const sel = document.querySelector('input[name="q' + i + '"]:checked');
+    return sel ? parseInt(sel.value) : -1;
+  });
+  if (answers.includes(-1)) {
+    if (!confirm('Есть неотвеченные вопросы. Продолжить?')) return;
+  }
+  const r = await fetch('/check_quiz/' + slug, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({answers})
+  });
+  const data = await r.json();
+  const resEl = document.getElementById('quiz-result');
+  let header = '';
+  if (data.passed) {
+    localStorage.setItem('passed_' + slug, '1');
+    header = '<div class="quiz-pass">✓ Тест сдан! ' + data.correct + ' / ' + data.total + ' правильных.</div>';
+  } else {
+    header = '<div class="quiz-fail">✗ Не сдано: ' + data.correct + ' / ' + data.total + '. Вернись к уроку и попробуй снова.</div>';
+  }
+
+  let breakdown = '<div class="quiz-breakdown"><h3>Разбор ответов</h3>';
+  data.details.forEach((d, i) => {
+    const cls = d.is_correct ? 'correct' : 'wrong';
+    const mark = d.is_correct ? '✓' : '✗';
+    breakdown += '<div class="quiz-item ' + cls + '">';
+    breakdown += '<div class="qi-q">' + mark + ' <b>' + (i+1) + '.</b> ' + d.q + '</div>';
+    if (d.user_answer === -1) {
+      breakdown += '<div class="qi-wrong">Ты не ответил</div>';
+    } else if (!d.is_correct) {
+      breakdown += '<div class="qi-wrong">Твой ответ: ' + d.options[d.user_answer] + '</div>';
+    } else {
+      breakdown += '<div class="qi-right">Твой ответ: ' + d.options[d.user_answer] + '</div>';
+    }
+    if (!d.is_correct) {
+      breakdown += '<div class="qi-correct">Правильный ответ: ' + d.options[d.correct_answer] + '</div>';
+    }
+    if (d.explanation) {
+      breakdown += '<div class="qi-explanation"><b>Почему:</b> ' + d.explanation + '</div>';
+    }
+    breakdown += '</div>';
+  });
+  breakdown += '</div>';
+
+  resEl.innerHTML = header + breakdown;
+  containerEl.querySelectorAll('.btn-quiz').forEach(b => b.disabled = true);
+}
+</script>
+{% endif %}
+{% endblock %}

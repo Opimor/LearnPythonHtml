@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Песочница — Learn Python{% endblock %}
+{% block content %}
+<div class="hero-badge">◈ python 3.13 · live</div>
+<h1>Песочница</h1>
+<p class="subtitle">Пиши Python-код и жми «Запустить» (или Ctrl+Enter). Таймаут — 10 секунд.</p>
+<div class="playground">
+  <textarea id="code" spellcheck="false"># Привет, мир!
+print("Hello, Python!")
+
+for i in range(5):
+    print(f"{i}^2 = {i*i}")</textarea>
+  <div class="controls">
+    <button id="run">▶ Запустить (Ctrl+Enter)</button>
+    <button id="clear" class="secondary">Очистить вывод</button>
+  </div>
+  <pre id="output">— вывод появится здесь —</pre>
+</div>
+<script>
+const codeEl = document.getElementById('code');
+const outEl = document.getElementById('output');
+const btn = document.getElementById('run');
+const clr = document.getElementById('clear');
+
+async function runCode() {
+  outEl.textContent = 'Запуск...';
+  try {
+    const r = await fetch('/run', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({code: codeEl.value})
+    });
+    const data = await r.json();
+    let out = data.stdout || '';
+    if (data.stderr) out += (out ? '\n' : '') + '[stderr]\n' + data.stderr;
+    if (!out) out = '(пусто)';
+    outEl.textContent = out;
+  } catch (e) {
+    outEl.textContent = 'Ошибка: ' + e;
+  }
+}
+btn.addEventListener('click', runCode);
+clr.addEventListener('click', () => outEl.textContent = '— вывод появится здесь —');
+
+codeEl.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); runCode(); }
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const s = codeEl.selectionStart, e2 = codeEl.selectionEnd;
+    codeEl.value = codeEl.value.slice(0, s) + '    ' + codeEl.value.slice(e2);
+    codeEl.selectionStart = codeEl.selectionEnd = s + 4;
+  }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero-badge">◈ Интерактивный курс · Python 3.13</div>
+<h1>Изучай Python<br>по-новому</h1>
+<p class="subtitle">Уроки от основ до нейросетей, гайды по библиотекам с живыми примерами и встроенная песочница для запуска кода.</p>
+
+{% for section, lessons in sections.items() %}
+  <div class="section-title">{{ section }}</div>
+  <ul class="lesson-list">
+  {% for lesson in lessons %}
+    <li class="lesson-card" data-slug="{{ lesson.slug }}">
+      <a href="/lesson/{{ section }}/{{ lesson.slug }}">
+        <img src="{{ url_for('static', filename='icons/arrow-right.svg') }}" class="icon">
+        <span class="lesson-text">
+          <span class="ltitle">{{ lesson.title }} 
+            <span class="passed-badge" id="badge-{{ lesson.slug }}" style="display:none;">
+              <img src="{{ url_for('static', filename='icons/check.svg') }}" class="icon"> Пройдено
+            </span>
+          </span>
+          <span class="lmeta">{{ lesson.words }} слов</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+{% endfor %}
+
+<script>
+document.querySelectorAll('.lesson-card').forEach(card => {
+  const slug = card.dataset.slug;
+  if (localStorage.getItem('passed_' + slug) === '1') {
+    const badge = document.getElementById('badge-' + slug);
+    if (badge) badge.style.display = 'inline-flex';
+  }
+});
+</script>
+{% endblock %}
