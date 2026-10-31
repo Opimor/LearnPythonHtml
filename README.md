@@ -52,8 +52,8 @@
 
 ### 1. Клонируй репозиторий
 ```bash
-git clone https://github.com/ВАШ_ЛОГИН/learn-python.git
-cd learn-python
+git clone https://github.com/Opimor/LearnPythonHtml.git
+cd LearnPythonHtml
 ```
 
 ### 2. Установи зависимости
