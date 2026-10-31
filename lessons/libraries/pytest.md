@@ -50,7 +50,7 @@ def test_add_params(a, b, expected):
 ## Дополнительно: фикстуры, conftest, моки
 
 ### Фикстуры (подготовка данных)
-@@@python
+```python
 import pytest
 
 @pytest.fixture
@@ -59,29 +59,29 @@ def sample_user():
 
 def test_user_name(sample_user):
     assert sample_user['name'] == 'Аня'
-@@@
+```
 
 ### Фикстуры с teardown (yield)
-@@@python
+```python
 @pytest.fixture
 def db():
     conn = connect()
     yield conn  # тест выполнится здесь
     conn.close()  # выполнится после теста
-@@@
+```
 
 ### conftest.py — общие фикстуры
 Файл `conftest.py` в корне проекта. Фикстуры из него доступны **всем** тестам без импорта.
-@@@python
+```python
 # conftest.py
 import pytest
 @pytest.fixture
 def client():
     return TestClient(app)
-@@@
+```
 
 ### Параметризация (один тест — много кейсов)
-@@@python
+```python
 @pytest.mark.parametrize('a, b, expected', [
     (1, 2, 3),
     (2, 2, 4),
@@ -89,10 +89,10 @@ def client():
 ])
 def test_add(a, b, expected):
     assert a + b == expected
-@@@
+```
 
 ### Моки (unittest.mock)
-@@@python
+```python
 from unittest.mock import patch
 
 def test_fetch_user():
@@ -100,10 +100,10 @@ def test_fetch_user():
         mock_get.return_value.json.return_value = {'name': 'Аня'}
         assert fetch_user(1)['name'] == 'Аня'
         mock_get.assert_called_once()
-@@@
+```
 
 ### Пропуск тестов
-@@@python
+```python
 @pytest.mark.skip(reason='не реализовано')
 def test_future(): ...
 
@@ -112,10 +112,10 @@ def test_new(): ...
 
 @pytest.mark.xfail  # ожидаемо падает
 def test_broken(): assert False
-@@@
+```
 
 ### Полезные флаги pytest
-@@@bash
+```bash
 pytest                    # все тесты
 pytest -v                 # подробно
 pytest -s                 # не скрывать print
@@ -123,11 +123,11 @@ pytest -x                 # остановиться на первой ошиб�
 pytest -k 'user'          # только тесты со словом 'user'
 pytest --lf               # только упавшие в прошлый раз
 pytest test_file.py::test_name  # конкретный тест
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Название файла не test_*.py — pytest не найдёт
 my_tests.py  # ⚠️
 test_my_code.py  # ✅
@@ -143,4 +143,4 @@ assert result == expected, f'Получили {result}, ожидали {expected
 # ❌ Использование print для отладки (pytest его скрывает)
 print(x)  # не видно
 pytest -s  # или запусти с флагом -s
-@@@
+```

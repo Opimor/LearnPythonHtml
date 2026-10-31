@@ -100,7 +100,7 @@ print(np.random.randint(0, 10, 5))     # [3 7 1 9 2]
 ## Дополнительно: продвинутые приёмы
 
 ### Создание массивов (все способы)
-@@@python
+```python
 np.zeros(5)              # [0. 0. 0. 0. 0.]
 np.zeros((2, 3))         # 2x3 нулей
 np.ones((3, 3))          # единичная 3x3
@@ -110,10 +110,10 @@ np.arange(0, 10, 2)      # [0 2 4 6 8]
 np.linspace(0, 1, 5)     # 5 чисел от 0 до 1
 np.random.rand(3, 3)     # [0,1) случайные
 np.random.randint(0, 10, (2, 3))  # целые
-@@@
+```
 
 ### Свойства массива
-@@@python
+```python
 a = np.array([[1, 2, 3], [4, 5, 6]])
 a.shape         # (2, 3) — строки, столбцы
 a.ndim          # 2 — размерность
@@ -122,77 +122,77 @@ a.dtype         # int64 — тип
 a.itemsize      # 8 — байт на элемент
 a.nbytes        # 48 — всего байт
 a.T             # транспонированная
-@@@
+```
 
 ### Операции по осям (axis)
-@@@python
+```python
 m = np.array([[1, 2], [3, 4]])
 m.sum()              # 10 — сумма всех
 m.sum(axis=0)        # [4 6] — сумма по столбцам
 m.sum(axis=1)        # [3 7] — сумма по строкам
 m.mean(axis=0)       # [2. 3.]
-@@@
+```
 
 ### Boolean indexing (маски)
-@@@python
+```python
 a = np.array([1, 5, 3, 8, 2])
 a[a > 3]             # [5 8]
 a[(a > 2) & (a < 6)] # [5 3]
 a[a % 2 == 0]        # [8 2]
 a[a > 3] = 0         # заменить все > 3 на 0
-@@@
+```
 
 ### Broadcasting (авто-расширение)
-@@@python
+```python
 a = np.array([1, 2, 3])
 a + 10               # [11 12 13] — прибавили ко всем
 
 m = np.array([[1, 2], [3, 4]])
 m + np.array([10, 20])  # прибавили к каждому столбцу
-@@@
+```
 
 **Правило:** если размеры совместимы (один из них 1), numpy автоматически расширит.
 
 ### Изменение формы
-@@@python
+```python
 a = np.arange(12)
 a.reshape(3, 4)      # 3x4
 a.reshape(4, -1)     # -1 = авто (4x3)
 a.flatten()          # копия в 1D
 a.ravel()            # view в 1D (быстрее)
-@@@
+```
 
 ### Объединение
-@@@python
+```python
 np.concatenate([a, b])      # склеить
 np.vstack([a, b])           # вертикально
 np.hstack([a, b])           # горизонтально
 np.stack([a, b])            # новая ось
 np.split(a, 3)              # разбить на 3 части
-@@@
+```
 
 ### Линейная алгебра
-@@@python
+```python
 np.linalg.inv(A)            # обратная матрица
 np.linalg.det(A)            # определитель
 np.linalg.eig(A)            # собственные значения
 np.linalg.solve(A, b)       # решить Ax = b
 A @ B                       # матричное умножение
 A * B                       # поэлементное (не путать!)
-@@@
+```
 
 ### Сохранение и загрузка
-@@@python
+```python
 np.save('file.npy', a)
 np.load('file.npy')
 np.savez('file.npz', x=a, y=b)  # несколько массивов
 np.savetxt('file.csv', a, delimiter=',')
 np.loadtxt('file.csv', delimiter=',')
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Смешивание numpy и списков
 lst = [1, 2, 3]
 lst * 2  # [1, 2, 3, 1, 2, 3] — повтор, не умножение
@@ -213,4 +213,4 @@ np.all(a == 3)  # False — все ли равны
 b = a  # это ссылка, не копия
 b[0] = 100  # поменяет и a
 b = a.copy()  # ✅ настоящая копия
-@@@
+```

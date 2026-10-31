@@ -50,7 +50,7 @@ print(accuracy_score(y_test, predictions))
 ## Дополнительно: метрики, GridSearch, Pipeline
 
 ### Метрики
-@@@python
+```python
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
     confusion_matrix, classification_report,
@@ -60,27 +60,27 @@ from sklearn.metrics import (
 accuracy_score(y_true, y_pred)
 classification_report(y_true, y_pred)  # полный отчёт
 confusion_matrix(y_true, y_pred)
-@@@
+```
 
 ### Кросс-валидация
-@@@python
+```python
 from sklearn.model_selection import cross_val_score
 scores = cross_val_score(model, X, y, cv=5)
 print(scores.mean(), scores.std())
-@@@
+```
 
 ### GridSearch (подбор гиперпараметров)
-@@@python
+```python
 from sklearn.model_selection import GridSearchCV
 
 params = {'n_estimators': [50, 100, 200], 'max_depth': [None, 10, 20]}
 grid = GridSearchCV(model, params, cv=5)
 grid.fit(X_train, y_train)
 print(grid.best_params_, grid.best_score_)
-@@@
+```
 
 ### Pipeline (весь процесс)
-@@@python
+```python
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -90,18 +90,18 @@ pipe = Pipeline([
 ])
 pipe.fit(X_train, y_train)
 print(pipe.score(X_test, y_test))
-@@@
+```
 
 ### Сохранение модели
-@@@python
+```python
 import joblib
 joblib.dump(model, 'model.pkl')
 model = joblib.load('model.pkl')
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Обучаем на тестовых данных
 model.fit(X_test, y_test)  # ⚠️ подгонка
 model.fit(X_train, y_train)  # ✅
@@ -111,4 +111,4 @@ StandardScaler().fit_transform(X)  # ✅
 
 # ❌ Не разделили данные
 train_test_split(X, y, test_size=0.2)  # ✅
-@@@
+```

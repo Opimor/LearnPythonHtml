@@ -7,10 +7,39 @@ app = Flask(__name__)
 BASE = os.path.dirname(os.path.abspath(__file__))
 LESSONS_DIR = os.path.join(BASE, "lessons")
 
-def list_lessons():
+def list_lessons(lang="ru"):
     sections = {}
-    if not os.path.isdir(LESSONS_DIR):
+    if lang == "en":
+        lang_dir = os.path.join(LESSONS_DIR, "en")
+    else:
+        lang_dir = LESSONS_DIR
+    if not os.path.isdir(lang_dir):
         return sections
+    for section in sorted(os.listdir(lang_dir)):
+        if section == "en":
+            continue
+        sec_path = os.path.join(lang_dir, section)
+        if not os.path.isdir(sec_path):
+            continue
+        files = []
+        for f in sorted(os.listdir(sec_path)):
+            if f.endswith(".md"):
+                slug = f[:-3]
+                title = slug
+                words = 0
+                try:
+                    with open(os.path.join(sec_path, f), encoding="utf-8") as fh:
+                        text = fh.read()
+                        words = len(text.split())
+                        for line in text.splitlines():
+                            if line.startswith("# "):
+                                title = line[2:].strip()
+                                break
+                except Exception:
+                    pass
+                files.append({"slug": slug, "title": title, "words": words})
+        sections[section] = files
+    return sections
     for section in sorted(os.listdir(LESSONS_DIR)):
         sec_path = os.path.join(LESSONS_DIR, section)
         if not os.path.isdir(sec_path):
@@ -37,18 +66,23 @@ def list_lessons():
 
 @app.route("/")
 def index():
-    return render_template("index.html", sections=list_lessons())
+    lang = request.args.get("lang", "ru")
+    return render_template("index.html", sections=list_lessons(lang), lang=lang)
 
 @app.route("/lesson/<section>/<slug>")
 def lesson(section, slug):
-    path = os.path.join(LESSONS_DIR, section, slug + ".md")
+    lang = request.args.get("lang", "ru")
+    if lang == "en":
+        path = os.path.join(LESSONS_DIR, "en", section, slug + ".md")
+    else:
+        path = os.path.join(LESSONS_DIR, section, slug + ".md")
     if not os.path.exists(path):
         abort(404)
     with open(path, encoding="utf-8") as f:
         md = f.read()
     html = markdown.markdown(md, extensions=["fenced_code", "tables"])
-    quiz = get_quiz_for(slug) if section == "basics" else None
-    return render_template("lesson.html", content=html, section=section, slug=slug, quiz=quiz)
+    quiz = get_quiz_for(slug) if (section == "basics" and lang == "ru") else None
+    return render_template("lesson.html", content=html, section=section, slug=slug, quiz=quiz, lang=lang)
 
 @app.route("/check_quiz/<slug>", methods=["POST"])
 def check_quiz(slug):

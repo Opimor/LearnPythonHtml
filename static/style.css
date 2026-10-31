@@ -433,3 +433,54 @@ body.light-theme .ltitle { color: #1a202c; }
 body.light-theme .lesson h1, body.light-theme .lesson h2, body.light-theme .lesson h3 { color: #1a202c; }
 body.light-theme .lesson table th { background: #eef2f7; color: #1a202c; }
 body.light-theme .lesson blockquote { background: #eef2f7; }
+
+/* Переключатель языка */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
+  background: #1a1d36;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.lang-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s;
+  opacity: 0.6;
+}
+.lang-btn:hover { opacity: 1; background: var(--bg-hover); }
+.lang-btn.active { opacity: 1; background: var(--accent); }
+body.light-theme .lang-switch { background: #eef2f7; }
+
+/* Переключатель языка — улучшенный */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
+  background: #1a1d36;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.lang-btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.lang-btn:hover { color: var(--text-bright); background: var(--bg-hover); }
+.lang-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+body.light-theme .lang-switch { background: #eef2f7; }
+body.light-theme .lang-btn { color: #4a5568; }
+body.light-theme .lang-btn.active { background: var(--accent); color: #fff; }

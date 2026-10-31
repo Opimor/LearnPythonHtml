@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="hero-badge">◈ Интерактивный курс · Python 3.13</div>
-<h1>Изучай Python<br>по-новому</h1>
-<p class="subtitle">Уроки от основ до нейросетей, гайды по библиотекам с живыми примерами и встроенная песочница для запуска кода.</p>
+<div class="hero-badge">◈ {% if lang == 'en' %}Interactive course · Python 3.13{% else %}Интерактивный курс · Python 3.13{% endif %}</div>
+<h1>{% if lang == 'en' %}Learn Python<br>a new way{% else %}Изучай Python<br>по-новому{% endif %}</h1>
+<p class="subtitle">{% if lang == 'en' %}Lessons from basics to neural networks, library guides with live examples, and a built-in playground for running code.{% else %}Уроки от основ до нейросетей, гайды по библиотекам с живыми примерами и встроенная песочница для запуска кода.{% endif %}</p>
 
 {% for section, lessons in sections.items() %}
   <div class="section-title">{{ section }}</div>
@@ -14,10 +14,10 @@
         <span class="lesson-text">
           <span class="ltitle">{{ lesson.title }} 
             <span class="passed-badge" id="badge-{{ lesson.slug }}" style="display:none;">
-              <img src="{{ url_for('static', filename='icons/check.svg') }}" class="icon"> Пройдено
+              <img src="{{ url_for('static', filename='icons/check.svg') }}" class="icon"> {% if lang == 'en' %}Completed{% else %}Пройдено{% endif %}
             </span>
           </span>
-          <span class="lmeta">{{ lesson.words }} слов</span>
+          <span class="lmeta">{{ lesson.words }} {% if lang == 'en' %}words{% else %}слов{% endif %}</span>
         </span>
       </a>
     </li>

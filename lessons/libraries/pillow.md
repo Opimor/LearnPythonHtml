@@ -50,32 +50,32 @@ img.save('out.png')
 ## Дополнительно: рисование, текст, обрезка
 
 ### Изменение размера
-@@@python
+```python
 img.resize((200, 100))                    # изменить размер
 img.resize((200, 100), Image.LANCZOS)     # качественно
 img.thumbnail((200, 200))                 # уменьшить до макс 200x200 (на месте)
-@@@
+```
 
 ### Обрезка и поворот
-@@@python
+```python
 img.crop((left, top, right, bottom))      # обрезать (x1, y1, x2, y2)
 img.crop((100, 50, 300, 250))             # 200x200 с точки (100, 50)
 img.rotate(90)                            # повернуть на 90° (против часовой)
 img.rotate(90, expand=True)               # расширить холст
 img.transpose(Image.FLIP_LEFT_RIGHT)      # отразить по горизонтали
 img.transpose(Image.FLIP_TOP_BOTTOM)      # по вертикали
-@@@
+```
 
 ### Режимы цвета
-@@@python
+```python
 img.convert('L')      # градации серого
 img.convert('RGB')    # RGB (без прозрачности)
 img.convert('RGBA')   # RGBA (с прозрачностью)
 img.convert('1')      # ч/б (1 бит)
-@@@
+```
 
 ### Рисование
-@@@python
+```python
 from PIL import ImageDraw
 draw = ImageDraw.Draw(img)
 
@@ -84,18 +84,18 @@ draw.rectangle([10, 10, 100, 100], outline=(0, 0, 0), width=3) # контур
 draw.ellipse([50, 50, 150, 150], fill=(0, 255, 0))             # круг
 draw.line([0, 0, 200, 200], fill=(255, 255, 255), width=3)    # линия
 draw.polygon([(10, 10), (50, 10), (30, 50)], fill=(0, 0, 255)) # треугольник
-@@@
+```
 
 ### Текст на картинке
-@@@python
+```python
 from PIL import ImageFont
 
 font = ImageFont.truetype('arial.ttf', 40)  # свой шрифт
 draw.text((50, 50), 'Привет!', fill=(255, 255, 255), font=font)
-@@@
+```
 
 ### Фильтры
-@@@python
+```python
 from PIL import ImageFilter
 
 img.filter(ImageFilter.BLUR).save('blur.jpg')
@@ -103,20 +103,20 @@ img.filter(ImageFilter.SHARPEN).save('sharp.jpg')
 img.filter(ImageFilter.GaussianBlur(5)).save('gauss.jpg')
 img.filter(ImageFilter.EDGE_ENHANCE).save('edges.jpg')
 img.filter(ImageFilter.CONTOUR).save('contour.jpg')
-@@@
+```
 
 ### Свойства
-@@@python
+```python
 img.size           # (width, height)
 img.width, img.height
 img.mode           # 'RGB', 'RGBA', 'L'
 img.format         # 'JPEG', 'PNG'
 img.info           # метаданные
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли сохранить или показать
 img = Image.open('photo.jpg')
 img.resize((200, 200))  # изменение только в памяти, файл не изменен
@@ -134,4 +134,4 @@ img.convert('RGB').save('out.jpg')  # ✅
 # ❌ Забыли import
 Image.open(...)  # NameError, если не импортировали
 from PIL import Image
-@@@
+```

@@ -209,17 +209,17 @@ gunicorn -w 4 app:app
 ## Дополнительно: шаблоны, статика, формы
 
 ### Шаблоны Jinja2
-@@@python
+```python
 from flask import render_template
 
 @app.route('/hello/<name>')
 def hello(name):
     return render_template('hello.html', name=name, items=[1, 2, 3])
-@@@
+```
 
 В `templates/hello.html`:
 
-@@@html
+```html
 <h1>Привет, {{ name }}!</h1>
 <ul>
 {% for item in items %}
@@ -232,37 +232,37 @@ def hello(name):
 {% else %}
   <p>Гость</p>
 {% endif %}
-@@@
+```
 
 ### Статика (CSS, JS, картинки)
-@@@html
+```html
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <img src="{{ url_for('static', filename='logo.png') }}">
-@@@
+```
 
 Файлы должны лежать в папке `static/`.
 
 ### Формы
-@@@python
+```python
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user = request.form['username']
         return redirect(url_for('profile', name=user))
     return render_template('login.html')
-@@@
+```
 
 ### Загрузка файлов
-@@@python
+```python
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
     file.save(f'uploads/{file.filename}')
     return 'Загружено'
-@@@
+```
 
 ### JSON API (REST)
-@@@python
+```python
 @app.route('/api/users', methods=['GET'])
 def api_users():
     return jsonify([{'id': 1, 'name': 'Аня'}])
@@ -271,10 +271,10 @@ def api_users():
 def create_user():
     data = request.json
     return jsonify({'id': 2, **data}), 201
-@@@
+```
 
 ### Проект: структура
-@@@
+```
 myapp/
 ├── app.py
 ├── templates/
@@ -285,16 +285,16 @@ myapp/
 │   ├── style.css
 │   └── script.js
 └── requirements.txt
-@@@
+```
 
 ### requirements.txt
-@@@bash
+```bash
 flask==3.0.0
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли debug=True — изменения не подхватываются
 app.run()           # не перезагружает при изменении
 app.run(debug=True) # ✅ перезагружает
@@ -319,4 +319,4 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # ✅
 # ❌ Высокая нагрузка — Flask в один поток
 app.run()  # только для разработки
 # Для продакшена: gunicorn -w 4 app:app
-@@@
+```

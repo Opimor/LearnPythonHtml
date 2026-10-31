@@ -13,10 +13,14 @@
     Learn Python
   </a>
   <nav>
-    <a href="/"><img src="{{ url_for('static', filename='icons/book.svg') }}" class="icon"> Уроки</a>
-    <a href="/playground"><img src="{{ url_for('static', filename='icons/terminal.svg') }}" class="icon"> Песочница</a>
-    <button id="theme-toggle" class="theme-btn" title="Переключить тему">🌙</button>
-    <span class="made-by">сделано <b>DeepSeek</b></span>
+    <a href="/?lang={{ lang }}"><img src="{{ url_for('static', filename='icons/book.svg') }}" class="icon"> {% if lang == 'en' %}Lessons{% else %}Уроки{% endif %}</a>
+    <a href="/playground"><img src="{{ url_for('static', filename='icons/terminal.svg') }}" class="icon"> {% if lang == 'en' %}Playground{% else %}Песочница{% endif %}</a>
+    <button id="theme-toggle" class="theme-btn" title="{% if lang == 'en' %}Toggle theme{% else %}Переключить тему{% endif %}">🌙</button>
+    <div class="lang-switch">
+      <a href="?lang=ru" class="lang-btn {% if lang == 'ru' %}active{% endif %}">RU</a>
+      <a href="?lang=en" class="lang-btn {% if lang == 'en' %}active{% endif %}">EN</a>
+    </div>
+    <span class="made-by">{% if lang == 'en' %}made by{% else %}сделано{% endif %} <b>DeepSeek</b></span>
   </nav>
 </header>
 <main>
@@ -24,23 +28,23 @@
 </main>
 <footer class="site-footer">
   <div>
-    <b>◈ Learn Python</b> — интерактивный курс
+    <b>◈ Learn Python</b> — {% if lang == 'en' %}interactive course{% else %}интерактивный курс{% endif %}
   </div>
   <div class="footer-meta">
-    Полностью создано <b>DeepSeek AI</b> · код, уроки, гайды и дизайн
+    {% if lang == 'en' %}Fully created by <b>DeepSeek AI</b> · code, lessons, guides, and design{% else %}Полностью создано <b>DeepSeek AI</b> · код, уроки, гайды и дизайн{% endif %}
   </div>
 </footer>
 <script>
 document.querySelectorAll('pre').forEach(pre => {
   const btn = document.createElement('button');
   btn.className = 'copy-btn';
-  btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Копировать';
+  btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> {% if lang == 'en' %}Copy{% else %}Копировать{% endif %}';
   pre.appendChild(btn);
   btn.addEventListener('click', () => {
     const code = pre.querySelector('code') || pre;
     navigator.clipboard.writeText(code.innerText).then(() => {
-      btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Скопировано';
-      setTimeout(() => btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> Копировать', 2000);
+      btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> {% if lang == 'en' %}Copied{% else %}Скопировано{% endif %}';
+      setTimeout(() => btn.innerHTML = '<img src="{{ url_for('static', filename='icons/copy.svg') }}" class="icon"> {% if lang == 'en' %}Copy{% else %}Копировать{% endif %}', 2000);
     });
   });
 });
@@ -63,7 +67,7 @@ document.querySelectorAll('.live-playground').forEach(box => {
   try {
     code = decodeURIComponent(escape(atob(b64)));
   } catch(e) {
-    code = 'Ошибка загрузки примера';
+    code = '{% if lang == 'en' %}Failed to load example{% else %}Ошибка загрузки примера{% endif %}';
   }
   
   const container = document.createElement('div');

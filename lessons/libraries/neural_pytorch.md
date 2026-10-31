@@ -62,7 +62,7 @@ class Net(nn.Module):
 ## Дополнительно: обучение, DataLoader, GPU
 
 ### Полный цикл обучения
-@@@python
+```python
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
@@ -82,20 +82,20 @@ for epoch in range(5):
         loss.backward()             # 3. Обратный проход
         optimizer.step()            # 4. Обновить веса
     print(epoch, loss.item())
-@@@
+```
 
 ### Слои
-@@@python
+```python
 nn.Linear(784, 128)         # полносвязный
 nn.Conv2d(3, 32, 3)         # 2D свёртка
 nn.MaxPool2d(2)             # max-pooling
 nn.BatchNorm2d(32)          # нормализация
 nn.Dropout(0.2)             # регуляризация
 nn.LSTM(128, 64)            # рекуррентный
-@@@
+```
 
 ### Сохранение / загрузка
-@@@python
+```python
 torch.save(model.state_dict(), 'model.pt')
 model.load_state_dict(torch.load('model.pt'))
 
@@ -105,25 +105,25 @@ torch.save({
     'optim': optimizer.state_dict(),
     'epoch': 10,
 }, 'checkpoint.pt')
-@@@
+```
 
 ### GPU
-@@@python
+```python
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = model.to(device)
 xb = xb.to(device)
-@@@
+```
 
 ### Инференс (предсказание)
-@@@python
+```python
 model.eval()
 with torch.no_grad():
     pred = model(X_test).argmax(dim=1)
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли optimizer.zero_grad() — градиенты накапливаются
 for xb, yb in loader:
     optimizer.zero_grad()  # ✅ обязательно
@@ -136,4 +136,4 @@ xb.to('cuda')  # ✅ оба на одном устройстве
 model.eval()  # ✅ отключает dropout/batchnorm
 with torch.no_grad():  # ✅ не считает градиенты
     pred = model(x)
-@@@
+```

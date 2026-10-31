@@ -1,157 +1,194 @@
-# 🐍 Learn Python — интерактивный учебник
+# 🐍 Learn Python — interactive course (Python + HTML/CSS/JS)
 
-Сгенерировано нейросетью!
-
-Полноценная база знаний по Python и веб-разработке: уроки, гайды по библиотекам, интерактивные тесты с разбором ошибок и практические проекты.
-
-**Полностью создано [DeepSeek AI](https://deepseek.com) — код, уроки, дизайн и объяснения.**
+**🇷🇺 [Русский](#-русский) | 🇬🇧 [English](#-english)**
 
 ---
 
-## ✨ Что внутри
+## 🇷🇺 Русский
 
-### 📚 Уроки Python (14 шт.)
-От `print('Hello')` до нейросетей:
+**Полноценная база знаний по Python и веб-разработке** — уроки, гайды по библиотекам, интерактивные тесты с разбором ошибок и практические проекты. Всё доступно на **русском и английском** языках (переключатель в шапке сайта).
+
+**Полностью создано [DeepSeek AI](https://deepseek.com) — код, уроки, дизайн и объяснения.**
+
+📚 **45 уроков на русском + 45 на английском.**
+
+### ✨ Что внутри
+
+**📚 Уроки Python (14 шт.)** — от `print('Hello')` до нейросетей:
+
 - Введение, переменные, условия, циклы
 - Функции, списки, файлы, ООП
 - Декораторы, генераторы, асинхронность
 - Ошибки, регулярки, pip/venv
 - Git/GitHub, OpenCV
 
-Каждый урок: подробное объяснение + код + блок **«📌 Запомни главное»** + интерактивный тест с разбором ошибок.
+**🌐 Уроки веб-разработки (7 шт.):**
 
-### 🌐 Уроки веб-разработки (7 шт.)
 - HTML: каркас, текст, ссылки, медиа, списки, таблицы, формы, семантика
 - CSS: селекторы, box-model, Flexbox, Grid, адаптив, живые песочницы
 - JavaScript: DOM, события, fetch, localStorage
 
-### 📖 Гайды по библиотекам (18 шт.)
-`requests`, `numpy`, `pandas`, `pygame`, `Pillow`, `Flask`, `pytest`, `tkinter`, `pywin32`, `pyautogui`, `sqlite3`, `openpyxl`, `pyaimp`, `rich/tqdm/loguru`, `stdlib`, `PyTorch`, `scikit-learn`, `llama-cpp-python`.
+**📖 Гайды по библиотекам (18 шт.):**
 
-Каждый гайд: объяснение каждой функции + шпаргалка в конце.
+requests, numpy, pandas, pygame, Pillow, Flask, pytest, tkinter, pywin32, pyautogui, sqlite3, openpyxl, pyaimp, rich/tqdm/loguru, stdlib, PyTorch, scikit-learn, llama-cpp-python.
 
-### 🛠 Практические проекты (5 шт.)
-- **To-Do лист** (HTML/CSS/JS) — добавление, удаление, сохранение задач
-- **Погодное приложение** (Python + tkinter + API)
-- **Змейка** (pygame) — полноценная игра с 8 шагами
-- **Парсер сайтов** (requests + BeautifulSoup)
-- **Telegram-бот** (aiogram)
-- **Как работает сайт**
-### ⚡ Возможности
-- 🧪 **Интерактивная песочница** — пиши Python-код и смотри результат
-- 📝 **Тесты с разбором** — при ошибке показывается правильный ответ и объяснение «Почему»
-- 🌙 **Тёмная и светлая тема** (кнопка в шапке)
+**🛠 Практикумы (6 шт.):**
+
+- To-Do лист (HTML/CSS/JS)
+- Погодное приложение (Python + tkinter + API)
+- Змейка (pygame)
+- Парсер сайтов (requests + BeautifulSoup)
+- Telegram-бот (aiogram)
+- Разбор архитектуры этого сайта
+
+**⚡ Возможности:**
+
+- 🌍 **Два языка** (RU / EN) — переключатель в шапке
+- 🧪 **Интерактивная песочница** для Python
+- 📝 **Тесты с разбором** — объяснение «почему» при ошибке
+- 🌙 **Тёмная и светлая темы**
 - 🔍 **Поиск** по урокам
-- 📊 **Прогресс** — пройденные уроки отмечаются галочкой
-- 🎨 **Живые примеры CSS** — меняй код и смотри результат сразу
-- 📱 **Адаптивный дизайн** — работает на телефонах и планшетах
+- 📊 **Прогресс** — пройденные уроки отмечаются
+- 🎨 **Живые CSS-примеры** — меняй код и смотри результат
+- 📱 **Адаптивный дизайн** — работает на телефонах
 
----
+### 🚀 Как запустить
 
-## 🚀 Как запустить
-
-### 1. Клонируй репозиторий
 ```bash
 git clone https://github.com/Opimor/LearnPythonHtml.git
 cd LearnPythonHtml
-```
-
-### 2. Установи зависимости
-```bash
 pip install -r requirements.txt
-```
-
-### 3. Запусти
-```bash
 python app.py
 ```
 
-Открой в браузере: **http://localhost:5000**
+Открой **http://localhost:5000**
 
-### Windows — в один клик
-Двойной клик по `start.bat`
+Windows: двойной клик по ```start.bat```
 
----
-
-## 📁 Структура проекта
+### 📁 Структура проекта
 
 ```
 LearnPython/
-├── app.py                  # Flask-сервер
-├── quizzes.py              # Вопросы для тестов
-├── requirements.txt        # Зависимости
-├── start.bat / stop.bat    # Запуск и остановка (Windows)
-│
-├── lessons/
-│   ├── basics/             # 14 уроков Python
-│   ├── html_css_js/        # 6 уроков веба
-│   ├── libraries/          # 18 гайдов по библиотекам
-│   └── projects/           # 5 практических проектов
-│
-├── templates/              # HTML-шаблоны Flask
-│   ├── base.html
-│   ├── index.html
-│   ├── lesson.html
-│   └── playground.html
-│
-└── static/
-    ├── style.css           # Стили (тёмная + светлая тема)
-    ├── icons/              # SVG-иконки
-    └── fonts/              # Шрифт MedeoSans
+  app.py                  # Flask-сервер
+  quizzes.py              # вопросы для тестов
+  requirements.txt
+  start.bat / stop.bat
+  lessons/
+    basics/               # 14 уроков Python (RU)
+    html_css_js/          # 7 уроков веба (RU)
+    libraries/            # 18 гайдов (RU)
+    projects/             # 6 практикумов (RU)
+    en/                   # то же самое на английском
+  templates/
+    base.html, index.html, lesson.html, playground.html
+  static/
+    style.css, icons/, fonts/
 ```
 
+### 🛠 Технологии
+
+- **Python 3.10+**, **Flask**, **Markdown**, **Jinja2**
+- Чистый **HTML / CSS / JavaScript** (без фреймворков)
+
+### 📄 Лицензия
+
+MIT. См. [LICENSE](LICENSE).
+
 ---
 
-## 🛠 Технологии
+## 🇬🇧 English
 
-- **Python 3.10+**
-- **Flask** — веб-фреймворк
-- **Markdown** — конвертация уроков в HTML
-- **Jinja2** — шаблоны
-- **Чистый CSS и JavaScript** (без фреймворков)
+**A complete knowledge base for Python and web development** — lessons, library guides, interactive quizzes with error explanations, and hands-on practice projects. Available in **both Russian and English** (switch in the site header).
 
----
+**Fully created by [DeepSeek AI](https://deepseek.com) — code, lessons, design, and explanations.**
 
-## 📝 Как добавить свой урок
+📚 **45 lessons in Russian + 45 in English.**
 
-1. Создай `.md` файл в `lessons/basics/` или `lessons/libraries/`.
-2. Первая строка `# Заголовок` станет названием в меню.
-3. Код оформляй через тройные обратные кавычки.
-4. Перезапускать сервер не нужно — урок появится автоматически.
+### ✨ What's inside
 
-Пример:
-```markdown
-# 15. Мой новый урок
+**📚 Python lessons (14):** from `print('Hello')` to neural networks:
 
-## Что это
-Объяснение команды `print()` — она выводит текст на экран.
+- Intro, variables, conditions, loops
+- Functions, lists, files, OOP
+- Decorators, generators, async
+- Errors, regex, pip/venv
+- Git/GitHub, OpenCV
 
-```python
-print('Привет!')
+**🌐 Web development lessons (7):**
+
+- HTML: structure, text, links, media, lists, tables, forms, semantics
+- CSS: selectors, box model, Flexbox, Grid, responsive, live playgrounds
+- JavaScript: DOM, events, fetch, localStorage
+
+**📖 Library guides (18):**
+
+requests, numpy, pandas, pygame, Pillow, Flask, pytest, tkinter, pywin32, pyautogui, sqlite3, openpyxl, pyaimp, rich/tqdm/loguru, stdlib, PyTorch, scikit-learn, llama-cpp-python.
+
+**🛠 Practice projects (6):**
+
+- To-Do app (HTML/CSS/JS)
+- Weather app (Python + tkinter + API)
+- Snake game (pygame)
+- Site scraper (requests + BeautifulSoup)
+- Telegram bot (aiogram)
+- Architecture breakdown of this site
+
+**⚡ Features:**
+
+- 🌍 **Two languages** (RU / EN) — switch in header
+- 🧪 **Python playground** in the browser
+- 📝 **Quizzes with explanations** — every mistake is explained
+- 🌙 **Dark and light themes**
+- 🔍 **Search** across lessons
+- 📊 **Progress tracking** — completed lessons are marked
+- 🎨 **Live CSS examples** — edit code and see result
+- 📱 **Responsive design** — works on phones
+
+### 🚀 How to run
+
+```bash
+git clone https://github.com/Opimor/LearnPythonHtml.git
+cd LearnPythonHtml
+pip install -r requirements.txt
+python app.py
 ```
+
+Open **http://localhost:5000**
+
+Windows: double-click ```start.bat```
+
+### 📁 Project structure
+
+```
+LearnPython/
+  app.py                  # Flask server
+  quizzes.py              # quiz questions
+  requirements.txt
+  start.bat / stop.bat
+  lessons/
+    basics/               # 14 Python lessons (RU)
+    html_css_js/          # 7 web lessons (RU)
+    libraries/            # 18 guides (RU)
+    projects/             # 6 practice projects (RU)
+    en/                   # same content in English
+  templates/
+    base.html, index.html, lesson.html, playground.html
+  static/
+    style.css, icons/, fonts/
 ```
 
----
+### 🛠 Tech stack
 
-## 🤝 Как помочь проекту
+- **Python 3.10+**, **Flask**, **Markdown**, **Jinja2**
+- Pure **HTML / CSS / JavaScript** (no frameworks)
 
-1. Форкни репозиторий
-2. Создай ветку (`git checkout -b feature/new-lesson`)
-3. Внеси изменения
-4. Сделай коммит (`git commit -m 'Добавил урок по теме X'`)
-5. Запушь (`git push origin feature/new-lesson`)
-6. Открой Pull Request
+### 📄 License
+
+MIT. See [LICENSE](LICENSE).
 
 ---
 
-## 📄 Лицензия
+## 🔗 Links
 
-MIT License. См. файл [LICENSE](LICENSE).
-
----
-
-## 👨‍💻 Автор
-
-**Создано DeepSeek AI** — вся база знаний, код и дизайн сгенерированы моделью DeepSeek в диалоге с пользователем.
-
-Если проект оказался полезен — поставь ⭐ звезду на GitHub!
+- **Repository:** https://github.com/Opimor/LearnPythonHtml
+- **Created by:** [DeepSeek AI](https://deepseek.com)

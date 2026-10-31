@@ -51,32 +51,32 @@ print(info.artist, info.title)
 ## Дополнительно: плейлисты, повтор, версия
 
 ### Управление воспроизведением (все методы)
-@@@python
+```python
 client.play()          # играть
 client.pause()         # пауза
 client.stop()          # стоп
 client.play_pause()    # переключить паузу
 client.next()          # следующий трек
 client.prev()          # предыдущий
-@@@
+```
 
 ### Громкость и звук
-@@@python
+```python
 client.set_volume(50)     # 0-100
 client.get_volume()       # текущая
 client.set_muted(True)    # без звука
 client.is_muted()         # True/False
-@@@
+```
 
 ### Позиция трека
-@@@python
+```python
 pos = client.get_player_position()  # миллисекунды
 client.set_player_position(60000)   # перемотать на 60 сек
 duration = client.get_current_track_duration()
-@@@
+```
 
 ### Информация о треке
-@@@python
+```python
 info = client.get_current_track_info()
 info.artist       # исполнитель
 info.title        # название
@@ -86,36 +86,36 @@ info.genre        # жанр
 info.filename     # путь к файлу
 info.duration     # длительность (мс)
 info.bit_rate     # битрейт
-@@@
+```
 
 ### Плейлисты
-@@@python
+```python
 client.add_files_to_playlist(r'C:\Music\track.mp3')
 client.add_dirs_to_playlist(r'C:\Music\Album')
 client.add_to_active_playlist(path)
 client.add_to_playlist_and_play(path)
 client.add_to_bookmarks(path)
-@@@
+```
 
 ### Режимы
-@@@python
+```python
 client.set_shuffled(True)           # случайный порядок
 client.is_shuffled()
 client.set_track_repeated(True)     # повтор
 client.is_track_repeated()
 client.set_recording(True)          # запись радио
-@@@
+```
 
 ### Версия и состояние
-@@@python
+```python
 major, build = client.get_version()  # ('4.12', 1878)
 state = client.get_playback_state()  # Stopped / Paused / Playing
 client.quit()  # закрыть AIMP (после этого client не работает)
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ AIMP не запущен — RuntimeError
 client = pyaimp.Client()  # ⚠️ упадёт, если AIMP закрыт
 try:
@@ -126,4 +126,4 @@ except RuntimeError:
 # ❌ Клиент после quit() — бесполезен
 client.quit()
 client.play()  # ⚠️ не работает, нужно снова Client()
-@@@
+```

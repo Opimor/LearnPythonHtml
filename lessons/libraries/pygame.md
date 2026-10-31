@@ -60,7 +60,7 @@ pygame.draw.rect(screen, (255, 0, 0), (100, 100, 200, 100))
 ## Дополнительно: движение, спрайты, звук
 
 ### Движение персонажа
-@@@python
+```python
 player_x, player_y = 100, 100
 speed = 5
 
@@ -70,11 +70,11 @@ while running:
     if keys[pygame.K_RIGHT]: player_x += speed
     if keys[pygame.K_UP]:    player_y -= speed
     if keys[pygame.K_DOWN]:  player_y += speed
-@@@
+```
 
 ### Спрайты (класс для персонажей)
 **Спрайт** — объект с картинкой (`image`) и прямоугольником (`rect`). Удобен для игр.
-@@@python
+```python
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -89,11 +89,11 @@ class Player(pygame.sprite.Sprite):
 
 player = Player(375, 500)
 all_sprites = pygame.sprite.Group(player)
-@@@
+```
 
 ### Коллизии (столкновения)
 **`colliderect()`** — проверяет, пересекаются ли два прямоугольника. **`spritecollide()`** — один спрайт против группы.
-@@@python
+```python
 if player.rect.colliderect(enemy.rect):
     print('Столкновение!')
 
@@ -102,24 +102,24 @@ hits = pygame.sprite.spritecollide(player, enemies, dokill=True)
 
 # Группа vs группа (пули vs враги)
 pygame.sprite.groupcollide(bullets, enemies, True, True)
-@@@
+```
 
 ### Текст на экране
-@@@python
+```python
 font = pygame.font.SysFont('Arial', 36)
 text = font.render('Счёт: 100', True, (255, 255, 255))
 screen.blit(text, (10, 10))  # рисуем в левом верхнем углу
-@@@
+```
 
 ### Загрузка картинок
-@@@python
+```python
 player_img = pygame.image.load('player.png').convert_alpha()
 player_img = pygame.transform.scale(player_img, (50, 50))
 screen.blit(player_img, (x, y))
-@@@
+```
 
 ### Звуки
-@@@python
+```python
 pygame.mixer.init()
 
 # Короткий звук
@@ -131,20 +131,20 @@ sound.play()
 pygame.mixer.music.load('music.mp3')
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)  # -1 = бесконечно
-@@@
+```
 
 ### Таймер (события каждые N миллисекунд)
-@@@python
+```python
 pygame.time.set_timer(pygame.USEREVENT, 1000)  # каждую секунду
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT:
             spawn_enemy()  # создать врага
-@@@
+```
 
 ### Анимация (смена кадров)
-@@@python
+```python
 class AnimatedSprite(pygame.sprite.Sprite):
     def __init__(self, frames):
         super().__init__()
@@ -160,11 +160,11 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.timer = 0
             self.index = (self.index + 1) % len(self.frames)
             self.image = self.frames[self.index]
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Забыли pygame.display.flip() — ничего не видно
 screen.fill((0, 0, 0))  # нарисовали, но не показали
 pygame.display.flip()   # ✅ обязательно в конце кадра
@@ -180,4 +180,4 @@ while running:
 
 # ❌ Используете Surface без convert_alpha — тормозит
 img = pygame.image.load('p.png').convert_alpha()  # ✅ ускоряет
-@@@
+```

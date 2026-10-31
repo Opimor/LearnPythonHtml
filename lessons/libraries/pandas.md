@@ -59,46 +59,46 @@ print(adults)
 ## Дополнительно: продвинутые приёмы
 
 ### Выбор данных
-@@@python
+```python
 df['name']              # один столбец (Series)
 df[['name', 'age']]     # несколько столбцов
 df.loc[0]               # строка по индексу
 df.iloc[0]              # строка по позиции
 df.loc[0, 'name']       # конкретное значение
 df.loc[0:2]             # срез по индексу
-@@@
+```
 
 ### Фильтрация
-@@@python
+```python
 df[df['age'] > 21]
 df[df['city'] == 'Москва']
 df[(df['age'] > 20) & (df['city'] != 'СПб')]
 df[df['name'].isin(['Аня', 'Оля'])]
 df[df['age'].between(20, 30)]
-@@@
+```
 
 ### Изменение
-@@@python
+```python
 df['new'] = df['age'] * 2
 df['age'] = df['age'] + 1
 df = df.drop(columns=['city'])
 df = df.rename(columns={'name': 'имя'})
 df = df.sort_values('age', ascending=False)
 df = df.reset_index(drop=True)
-@@@
+```
 
 ### Пропуски (NaN)
-@@@python
+```python
 df.isna().sum()             # сколько пропусков в каждом столбце
 df.dropna()                 # удалить строки с NaN
 df.dropna(subset=['age'])   # только по столбцу
 df.fillna(0)                # заполнить нулями
 df['age'].fillna(df['age'].mean())  # средним
 df.fillna(method='ffill')   # предыдущим значением
-@@@
+```
 
 ### Группировка и агрегация
-@@@python
+```python
 df.groupby('city')['age'].mean()
 df.groupby('city')['age'].agg(['mean', 'max', 'min'])
 df.groupby('city').agg({
@@ -112,36 +112,36 @@ df.groupby('city').agg(
     avg_age=('age', 'mean'),
     total=('age', 'sum')
 )
-@@@
+```
 
 ### apply и map
-@@@python
+```python
 df['is_adult'] = df['age'].apply(lambda x: x >= 18)
 df['name_upper'] = df['name'].str.upper()
 df['name_len'] = df['name'].str.len()
 df['city'] = df['city'].map({'Москва': 'MSK', 'СПб': 'SPB'})
-@@@
+```
 
 ### Работа со строками (.str)
-@@@python
+```python
 df['name'].str.upper()
 df['name'].str.lower()
 df['name'].str.strip()
 df['name'].str.contains('Аня')
 df['name'].str.startswith('А')
 df['name'].str.split(' ', expand=True)  # на столбцы
-@@@
+```
 
 ### Объединение таблиц
-@@@python
+```python
 pd.concat([df1, df2])                    # склеить
 df1.merge(df2, on='id')                  # SQL JOIN
 df1.merge(df2, on='id', how='left')      # LEFT JOIN
 df1.merge(df2, left_on='uid', right_on='id')  # разные имена
-@@@
+```
 
 ### Чтение и сохранение (все форматы)
-@@@python
+```python
 pd.read_csv('file.csv')
 pd.read_excel('file.xlsx', sheet_name=0)
 pd.read_json('file.json')
@@ -151,19 +151,19 @@ pd.read_html('https://site.com/table')  # таблицы из HTML
 df.to_csv('out.csv', index=False)
 df.to_excel('out.xlsx', index=False)
 df.to_json('out.json', orient='records')
-@@@
+```
 
 ### Работа с датами
-@@@python
+```python
 df['date'] = pd.to_datetime(df['date_str'])
 df['date'].dt.year, .dt.month, .dt.day
 df['date'].dt.dayofweek  # 0 = понедельник
 df['date'].dt.strftime('%Y-%m-%d')
 pd.date_range('2024-01-01', periods=10, freq='D')
-@@@
+```
 
 ### Пайплайн (всё в одной цепочке)
-@@@python
+```python
 result = (
     pd.read_csv('sales.csv')
     .dropna(subset=['amount'])
@@ -173,11 +173,11 @@ result = (
     .agg(revenue=('total', 'sum'), n=('total', 'size'))
     .sort_values('revenue', ascending=False)
 )
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Изменение без inplace или присваивания
 df.drop(columns=['city'])  # не сохранит изменения!
 df = df.drop(columns=['city'])  # ✅
@@ -194,4 +194,4 @@ df[(df['age'] > 20) & (df['city'] == 'Москва')]  # ✅
 # ❌ Сравнение через == на NaN
 df[df['age'] == None]  # не работает
 df[df['age'].isna()]  # ✅
-@@@
+```

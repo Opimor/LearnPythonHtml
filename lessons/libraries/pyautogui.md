@@ -53,7 +53,7 @@ img.save('screen.png')
 ## Дополнительно: клавиши, поиск на экране, скролл
 
 ### Все клавиши
-@@@python
+```python
 pyautogui.press('enter')
 pyautogui.press(['a', 'b', 'c'])
 pyautogui.press('enter', presses=3)  # 3 раза
@@ -66,20 +66,20 @@ pyautogui.keyUp('shift')
 pyautogui.hotkey('ctrl', 'c')
 pyautogui.hotkey('alt', 'tab')
 pyautogui.hotkey('win', 'r')
-@@@
+```
 
 ### Все клавиши (список)
 `enter, space, tab, backspace, delete, esc, escape, shift, ctrl, alt, win, up, down, left, right, home, end, pageup, pagedown, f1-f24, a-z, 0-9, num0-num9`
 
 ### Скролл
-@@@python
+```python
 pyautogui.scroll(500)   # вверх (положительное)
 pyautogui.scroll(-500)  # вниз
 pyautogui.hscroll(500)  # горизонтально вправо
-@@@
+```
 
 ### Перетаскивание
-@@@python
+```python
 pyautogui.dragTo(500, 500, duration=1)  # плавно тащить в (500, 500)
 pyautogui.dragRel(100, 0, duration=0.5) # относительно
 
@@ -88,10 +88,10 @@ pyautogui.moveTo(100, 200)
 pyautogui.mouseDown()
 pyautogui.moveTo(300, 400, duration=1)
 pyautogui.mouseUp()
-@@@
+```
 
 ### Поиск картинки на экране
-@@@python
+```python
 # Найти кнопку (нужен opencv-python)
 location = pyautogui.locateOnScreen('btn.png', confidence=0.8)
 if location:
@@ -105,27 +105,27 @@ for loc in pyautogui.locateAllOnScreen('icon.png', confidence=0.9):
 # Найти и кликнуть
 x, y = pyautogui.locateCenterOnScreen('btn.png')
 pyautogui.click(x, y)
-@@@
+```
 
 ### Скриншоты
-@@@python
+```python
 img = pyautogui.screenshot()              # весь экран
 img.save('screen.png')
 
 img = pyautogui.screenshot(region=(0, 0, 500, 400))  # область
-@@@
+```
 
 ### Кириллица (через буфер)
-@@@python
+```python
 # pyautogui.typewrite не работает с русскими буквами напрямую
 import pyperclip
 pyperclip.copy('Привет, мир!')
 pyautogui.hotkey('ctrl', 'v')
-@@@
+```
 
 ## ⚠️ Типичные ошибки
 
-@@@python
+```python
 # ❌ Пытаться ввести русский текст через typewrite
 pyautogui.typewrite('Привет')  # выведет кракозябры
 pyperclip.copy('Привет'); pyautogui.hotkey('ctrl', 'v')  # ✅
@@ -139,4 +139,4 @@ pyautogui.PAUSE = 0.5  # ✅ полсекунды между командами
 # ❌ Клик до загрузки нужного окна
 pyautogui.click()  # окно не открылось — кликнул в другое место
 time.sleep(2); pyautogui.click()  # ✅
-@@@
+```
